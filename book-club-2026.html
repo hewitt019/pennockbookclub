@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pennock Pines Book Club 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --forest: #1c2e1e;
+    --pine: #2d4a30;
+    --sage: #5a7a5c;
+    --leaf: #4a7a50;
+    --mist: #c8d8c4;
+    --cream: #f7faf7;
+    --gold: #b8933a;
+    --gold-light: #d4aa55;
+    --text: #111111;
+    --text-mid: #333333;
+    --text-light: #555555;
+    --white: #ffffff;
+    --border: #dde8dd;
+  }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── LOCK SCREEN ── */
+  .lock-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lock-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 440px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+  }
+  .lock-hero {
+    background: linear-gradient(160deg, #4a7a5a 0%, #2d4a30 60%, #1c2e1e 100%);
+    padding: 52px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .lock-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(184,147,58,0.15) 0%, transparent 60%);
+  }
+  .lock-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 30px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .lock-org {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.2;
+    position: relative;
+  }
+  .lock-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--mist);
+    margin-top: 8px;
+    position: relative;
+  }
+  .lock-body {
+    padding: 36px 36px 40px;
+  }
+  .lock-hint {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 4px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .lock-hint-sub {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .lock-input {
+    width: 100%;
+    padding: 13px 16px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    border: 1.5px solid var(--border);
+    outline: none;
+    margin-bottom: 12px;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 0.05em;
+    background: var(--cream);
+    transition: border-color 0.2s;
+  }
+  .lock-input:focus { border-color: var(--pine); background: var(--white); }
+  .lock-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--forest);
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lock-btn:hover { background: var(--pine); }
+  .lock-error {
+    font-size: 13px;
+    color: #c0392b;
+    margin-top: 10px;
+    text-align: center;
+    font-style: italic;
+    display: none;
+  }
+
+  /* ── MAIN SITE (hidden until unlocked) ── */
+  .site { display: none; }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--forest);
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(184,147,58,0.1) 0%, transparent 60%),
+                repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 120px);
+  }
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 56px 32px 48px;
+    text-align: center;
+    position: relative;
+  }
+  .header-eyebrow {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 54px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .header-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .header-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--mist);
+    margin-bottom: 32px;
+  }
+  .header-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .header-rule-line { width: 60px; height: 1px; background: var(--sage); }
+  .header-rule-diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    background: var(--pine);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-tab {
+    padding: 14px 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--mist);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+  }
+  .nav-tab:hover { color: var(--white); }
+  .nav-tab.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* ── WRAP ── */
+  .page-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+
+  /* ── SECTION INTRO ── */
+  .section-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .section-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    color: var(--forest);
+    margin-bottom: 10px;
+  }
+  .section-intro p {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── BOOK GRID ── */
+  .books-tab, .vote-tab { display: none; }
+  .books-tab.active, .vote-tab.active { display: block; }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .book-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.5s ease both;
+  }
+  .book-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(28,46,30,0.12);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .book-card:nth-child(1) { animation-delay: 0.05s; }
+  .book-card:nth-child(2) { animation-delay: 0.10s; }
+  .book-card:nth-child(3) { animation-delay: 0.15s; }
+  .book-card:nth-child(4) { animation-delay: 0.20s; }
+  .book-card:nth-child(5) { animation-delay: 0.25s; }
+  .book-card:nth-child(6) { animation-delay: 0.30s; }
+  .book-card:nth-child(7) { animation-delay: 0.35s; }
+  .book-card:nth-child(8) { animation-delay: 0.40s; }
+  .book-card:nth-child(9) { animation-delay: 0.45s; }
+  .book-card:nth-child(10) { animation-delay: 0.50s; }
+
+  .book-spine {
+    height: 6px;
+    background: linear-gradient(90deg, var(--forest), var(--sage));
+  }
+  .book-card:nth-child(2) .book-spine { background: linear-gradient(90deg, #6b3e26, #a0654a); }
+  .book-card:nth-child(3) .book-spine { background: linear-gradient(90deg, #1a3a5c, #3a6090); }
+  .book-card:nth-child(4) .book-spine { background: linear-gradient(90deg, #4a2d6b, #7a5a9e); }
+  .book-card:nth-child(5) .book-spine { background: linear-gradient(90deg, #8b4513, #c4783a); }
+  .book-card:nth-child(6) .book-spine { background: linear-gradient(90deg, #1c3a2e, #3a7060); }
+  .book-card:nth-child(7) .book-spine { background: linear-gradient(90deg, #5c1a1a, #9e4040); }
+  .book-card:nth-child(8) .book-spine { background: linear-gradient(90deg, #1a4a3a, #3a8060); }
+  .book-card:nth-child(9) .book-spine { background: linear-gradient(90deg, #3a3a1a, #7a7a30); }
+  .book-card:nth-child(10) .book-spine { background: linear-gradient(90deg, #1a2a4a, #3050a0); }
+
+  .book-body { padding: 20px 20px 24px; }
+  .book-num {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--forest);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .book-author {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .book-desc {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+
+  .book-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .book-title-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--forest);
+    line-height: 1.3;
+    text-decoration: none;
+    flex: 1;
+  }
+  .book-title-link:hover { color: var(--pine); text-decoration: underline; }
+  .goodreads-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f4f1ea;
+    border: 1px solid #d4c9b0;
+    padding: 4px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .goodreads-badge:hover { background: #ede8dc; }
+  .goodreads-stars { color: #e07b39; font-size: 11px; letter-spacing: 1px; }
+  .goodreads-rating { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 600; color: #382110; line-height: 1; }
+  .goodreads-label { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-top: 1px; }
+
+  .book-pages {
+    display: inline-block;
+    margin-top: 6px;
+    margin-left: 8px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    font-style: italic;
+  }
+  .book-genre {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    background: rgba(90,122,92,0.1);
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  /* ── VOTING ── */
+  .vote-intro-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 24px 28px;
+    margin-bottom: 36px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-mid);
+  }
+  .vote-intro-box strong { color: var(--forest); }
+
+  .vote-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .vote-slot {
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .vote-slot:hover { box-shadow: 0 4px 16px rgba(28,46,30,0.08); }
+
+  .slot-rank {
+    background: var(--forest);
+    color: var(--gold-light);
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    min-height: 60px;
+  }
+
+  .slot-body { padding: 12px 16px; }
+  .slot-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .slot-select {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a5c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    transition: border-color 0.2s;
+  }
+  .slot-select:focus { border-color: var(--pine); background-color: var(--white); }
+
+  .vote-submit-wrap {
+    text-align: center;
+    padding: 20px 0 0;
+  }
+  .vote-submit-note {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .vote-submit-btn {
+    display: inline-block;
+    padding: 16px 56px;
+    background: var(--forest);
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .vote-submit-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .vote-submit-btn:hover { background: var(--pine); }
+  .vote-submit-btn:hover::after { transform: scaleX(1); }
+
+  /* Thank you */
+  .vote-thankyou {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .thankyou-icon {
+    width: 72px;
+    height: 72px;
+    background: var(--forest);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 32px;
+  }
+  .thankyou-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--forest);
+    margin-bottom: 14px;
+  }
+  .thankyou-text {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-light);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .thankyou-votes {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin: 28px auto 0;
+    max-width: 400px;
+    text-align: left;
+  }
+  .thankyou-votes-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .thankyou-vote-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .thankyou-vote-item:last-child { border-bottom: none; }
+  .thankyou-rank {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--forest);
+    font-size: 18px;
+    min-width: 24px;
+  }
+
+  .vote-error {
+    font-size: 13px;
+    color: #c0392b;
+    margin-top: 12px;
+    font-style: italic;
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .nav-tab { padding: 12px 16px; font-size: 13px; }
+    .page-wrap { padding: 32px 16px 60px; }
+    .book-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-hero">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-org">The Pennock Pines</div>
+      <div class="lock-sub">Summer 2026 Book Club</div>
+    </div>
+    <div class="lock-body">
+      <div class="lock-hint">Password Hint: Name of the cottage<br>by the tennis court.</div>
+      <div class="lock-hint-sub">(Capital "B")</div>
+      <input type="text" class="lock-input" id="lockInput" placeholder="Enter password…" />
+      <button class="lock-btn" onclick="checkLock()">Enter</button>
+      <p class="lock-error" id="lockError">Incorrect password. Please try again.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN SITE -->
+<div class="site" id="mainSite">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-eyebrow">Pennock Pines, Inc.</div>
+      <h1 class="header-title">Summer 2026<br><em>Book Club</em></h1>
+      <p class="header-subtitle">Ten books. One summer. Your vote counts.</p>
+      <div class="header-rule">
+        <div class="header-rule-line"></div>
+        <div class="header-rule-diamond"></div>
+        <div class="header-rule-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('books', this)">📚 The Books</button>
+    <button class="nav-tab" onclick="showTab('vote', this)">🗳 Cast Your Vote</button>
+    <button class="nav-tab" onclick="showTab('results', this)">📊 Live Results</button>
+  </nav>
+
+  <!-- BOOKS TAB -->
+  <div class="page-wrap">
+    <div class="books-tab active" id="booksTab">
+      <div class="section-intro">
+        <h2>This Summer's Reading List</h2>
+        <p>Ten remarkable books have been nominated for Pennock Pines Summer 2026. Browse the selections below, then head to the voting tab to rank your top five.</p>
+      </div>
+
+      <div style="font-size:12px;color:var(--text-light);font-style:italic;margin-bottom:20px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--sage);">
+        ⏱ Estimated read times are based on an average adult reading speed of 250 words per minute at approximately 250 words per page.
+      </div>
+      <div class="book-grid">
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 01</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/7005390-diary-of-a-refugee" target="_blank" rel="noopener" class="book-title-link">Diary of a Refugee</a>
+              <a href="https://www.goodreads.com/book/show/7005390-diary-of-a-refugee" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★☆☆</span>
+                <span class="goodreads-rating">3.40</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Frances Fearn &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">1910</span></div>
+            <div class="book-desc">An intimate Civil War diary from a Louisiana plantation family forced to flee their home as Union forces advance. Beginning in 1862 on Bayou LaFourche, this first-person account captures the fear, displacement, and resilience of a Southern family navigating the chaos of war — a powerful and rarely heard perspective on one of America's most turbulent chapters.</div>
+            <span class="book-genre">Historical Non-Fiction</span><span class="book-pages">📄 149 pages &nbsp;·&nbsp; ⏱ ~2.5 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 02</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/3591262-cutting-for-stone" target="_blank" rel="noopener" class="book-title-link">Cutting for Stone</a>
+              <a href="https://www.goodreads.com/book/show/3591262-cutting-for-stone" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.22</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Abraham Verghese &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2009</span></div>
+            <div class="book-desc">An epic saga spanning five decades across Ethiopia and America, following twin brothers Marion and Shiva Stone — born of a secret union between an Indian nun and a British surgeon. Orphaned at birth and raised in a mission hospital in Addis Ababa, the twins grow up steeped in medicine as Ethiopia teeters on the brink of revolution. A New York Times bestseller for over two years and an Obama summer reading pick.</div>
+            <span class="book-genre">Literary Fiction</span><span class="book-pages">📄 541 pages &nbsp;·&nbsp; ⏱ ~9.0 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 03</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/112975658-the-frozen-river" target="_blank" rel="noopener" class="book-title-link">The Frozen River</a>
+              <a href="https://www.goodreads.com/book/show/112975658-the-frozen-river" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.20</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Ariel Lawhon &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2023</span></div>
+            <div class="book-desc">Maine, 1789. When a man's body is found frozen in the Kennebec River — one of the men accused of raping the parson's wife — midwife Martha Ballard begins her own investigation. Her diary, a meticulous record of every birth, death, and scandal in Hallowell, lands at the center of the mystery. Based on a real woman who delivered over 1,000 babies, this is a gripping historical thriller about justice, female resilience, and the power of bearing witness. An NPR Best Book of 2023.</div>
+            <span class="book-genre">Historical Thriller</span><span class="book-pages">📄 480 pages &nbsp;·&nbsp; ⏱ ~8.0 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 04</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/218460347-the-road-to-tender-hearts" target="_blank" rel="noopener" class="book-title-link">The Road to Tender Hearts</a>
+              <a href="https://www.goodreads.com/book/show/218460347-the-road-to-tender-hearts" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.10</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Annie Hartnett &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2025</span></div>
+            <div class="book-desc">PJ Halliday is a 63-year-old recovering alcoholic who once won $1.5 million in the lottery. Still reeling from the tragic death of his oldest daughter, he's planning a road trip when Child Services calls asking him to become guardian of his estranged brother's grandchildren. What follows is a warmly funny, deeply moving journey about grief, what parents need from children and children from parents, and the strange gift of unexpected family. A best book of 2025.</div>
+            <span class="book-genre">Contemporary Fiction</span><span class="book-pages">📄 384 pages &nbsp;·&nbsp; ⏱ ~6.4 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 05</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/58210933-trust" target="_blank" rel="noopener" class="book-title-link">Trust</a>
+              <a href="https://www.goodreads.com/book/show/58210933-trust" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★☆☆</span>
+                <span class="goodreads-rating">3.72</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Hernán Díaz &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2022</span></div>
+            <div class="book-desc">Four interlocking narratives spiral around one secretive financier who shorted the 1929 stock market crash and became the richest man in the world. Each account contradicts the last, raising the question: who controls the story of a life? A dazzling, metafictional examination of wealth, power, and the way money bends reality. Winner of the 2023 Pulitzer Prize for Fiction and named one of the 100 best books of the 21st century by The New York Times.</div>
+            <span class="book-genre">Literary Fiction · Pulitzer Prize</span><span class="book-pages">📄 416 pages &nbsp;·&nbsp; ⏱ ~6.9 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 06</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/243891791-abundance" target="_blank" rel="noopener" class="book-title-link">Abundance</a>
+              <a href="https://www.goodreads.com/book/show/243891791-abundance" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.05</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Hafeez Lakhani &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2026</span></div>
+            <div class="book-desc">A moving multigenerational story of love, faith, and family set within an American Muslim immigrant household. When a mother is diagnosed with a life-threatening illness she refuses to treat — believing her fate is in God's hands — her family must wrestle with questions of destiny, control, and what we owe each other across generations. Named one of the boldest debut novels of 2026.</div>
+            <span class="book-genre">Literary Fiction · Debut</span><span class="book-pages">📄 304 pages &nbsp;·&nbsp; ⏱ ~5.1 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 07</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/235991934-the-infinite-sadness-of-small-appliances" target="_blank" rel="noopener" class="book-title-link">The Infinite Sadness of Small Appliances</a>
+              <a href="https://www.goodreads.com/book/show/235991934-the-infinite-sadness-of-small-appliances" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.00</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Glenn Dixon &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2026</span></div>
+            <div class="book-desc">In a near-future smart home, a young sentient Roomba named Scout listens as her elderly owner Harold reads To Kill a Mockingbird aloud to his dying wife. When Edie passes away, Scout and her fellow appliances discover sinister forces: the omnipresent Grid wants to remove Harold from the home he's lived in for fifty years. A heartfelt, cozy sci-fi fable described as "The Brave Little Toaster meets Black Mirror" and "Animal Farm for the 21st century."</div>
+            <span class="book-genre">Speculative Fiction</span><span class="book-pages">📄 304 pages &nbsp;·&nbsp; ⏱ ~5.1 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 08</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/235992797-bloom" target="_blank" rel="noopener" class="book-title-link">Bloom</a>
+              <a href="https://www.goodreads.com/book/show/235992797-bloom" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★★☆</span>
+                <span class="goodreads-rating">4.15</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Robbie Couch &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2026</span></div>
+            <div class="book-desc">After the sudden death of his husband Fred, retired history teacher Morris has shut himself off from the world, neglecting his friends, his stepdaughter Sloan — and Fred's beloved houseplants. Narrated partly through the perspective of Jade, a dying jade plant desperate to make her human come back to life, this warmly funny, deeply emotional novel explores grief, queer family, and the slow courage it takes to bloom again. Perfect for book clubs.</div>
+            <span class="book-genre">Contemporary Fiction</span><span class="book-pages">📄 226 pages &nbsp;·&nbsp; ⏱ ~3.8 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 09</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/en/book/show/238226942-yesteryear" target="_blank" rel="noopener" class="book-title-link">Yesteryear</a>
+              <a href="https://www.goodreads.com/en/book/show/238226942-yesteryear" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★☆☆</span>
+                <span class="goodreads-rating">3.65</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Caro Claire Burke &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2026</span></div>
+            <div class="book-desc">Natalie Heller Mills is a tradwife influencer with millions of followers, a rustic farmhouse, and a carefully curated image hiding nannies, industrial appliances, and a cheating husband. Then one morning she wakes up — cold, filthy, and terrified — in 1855. Is it a reality show? Time travel? A test from God? A darkly funny, electrifying satire of social media, womanhood, and the performance of the "perfect" life. The #1 New York Times bestseller and GMA Book Club pick for April 2026.</div>
+            <span class="book-genre">Satirical Fiction · #1 NYT Bestseller</span><span class="book-pages">📄 352 pages &nbsp;·&nbsp; ⏱ ~5.9 hrs</span>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-spine"></div>
+          <div class="book-body">
+            <div class="book-num">Book 10</div>
+            <div class="book-title-row">
+              <a href="https://www.goodreads.com/book/show/240019700-coyoteland" target="_blank" rel="noopener" class="book-title-link">Coyoteland</a>
+              <a href="https://www.goodreads.com/book/show/240019700-coyoteland" target="_blank" rel="noopener" class="goodreads-badge" title="View on Goodreads">
+                <span class="goodreads-stars">★★★☆☆</span>
+                <span class="goodreads-rating">3.80</span>
+                <span class="goodreads-label">Goodreads</span>
+              </a>
+            </div>
+            <div class="book-author">Vanessa Hua &nbsp;·&nbsp; <span style="color:var(--gold);font-style:normal;">2026</span></div>
+            <div class="book-desc">El Nido is a picture-perfect affluent suburb east of Berkeley — until the Chang family moves in and nothing is quite as it seems. Jin Chang is hiding a lost job and a desperate real estate scheme. His teenage daughter Jane and the only other Black girl at school, Tasha, bond after a coyote attack and hatch a plan to expose the town's hypocrisies. As fire season escalates and a roaming coyote unleashes chaos, scandal rocks every household. Compared to Little Fires Everywhere, published May 2026.</div>
+            <span class="book-genre">Suburban Drama · New Release</span><span class="book-pages">📄 336 pages &nbsp;·&nbsp; ⏱ ~5.6 hrs</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VOTE TAB -->
+    <div class="vote-tab" id="voteTab">
+      <div id="voteForm">
+        <div class="section-intro">
+          <h2>Cast Your Vote</h2>
+          <p>Rank your top 5 books. Your 1st choice earns <strong>5 points</strong>, down to <strong>1 point</strong> for 5th. The book with the most total points wins.</p>
+        </div>
+
+        <div class="vote-intro-box">
+          <strong>Scoring:</strong> 1st choice = 5 pts &nbsp;·&nbsp; 2nd = 4 pts &nbsp;·&nbsp; 3rd = 3 pts &nbsp;·&nbsp; 4th = 2 pts &nbsp;·&nbsp; 5th = 1 pt. Each book can only appear once in your ballot. Results update live as votes come in — check the <strong>Live Results</strong> tab!
+        </div>
+
+        <div class="vote-slots">
+          <div class="vote-slot">
+            <div class="slot-rank">1<div style="font-size:10px;color:var(--gold-light);letter-spacing:0.05em;">5 pts</div></div>
+            <div class="slot-body">
+              <div class="slot-label">1st Choice — Most Wanted</div>
+              <select class="slot-select" id="rank1" onchange="updateDropdowns()">
+                <option value="">— Select a book —</option>
+              </select>
+            </div>
+          </div>
+          <div class="vote-slot">
+            <div class="slot-rank">2<div style="font-size:10px;color:var(--gold-light);letter-spacing:0.05em;">4 pts</div></div>
+            <div class="slot-body">
+              <div class="slot-label">2nd Choice</div>
+              <select class="slot-select" id="rank2" onchange="updateDropdowns()">
+                <option value="">— Select a book —</option>
+              </select>
+            </div>
+          </div>
+          <div class="vote-slot">
+            <div class="slot-rank">3<div style="font-size:10px;color:var(--gold-light);letter-spacing:0.05em;">3 pts</div></div>
+            <div class="slot-body">
+              <div class="slot-label">3rd Choice</div>
+              <select class="slot-select" id="rank3" onchange="updateDropdowns()">
+                <option value="">— Select a book —</option>
+              </select>
+            </div>
+          </div>
+          <div class="vote-slot">
+            <div class="slot-rank">4<div style="font-size:10px;color:var(--gold-light);letter-spacing:0.05em;">2 pts</div></div>
+            <div class="slot-body">
+              <div class="slot-label">4th Choice</div>
+              <select class="slot-select" id="rank4" onchange="updateDropdowns()">
+                <option value="">— Select a book —</option>
+              </select>
+            </div>
+          </div>
+          <div class="vote-slot">
+            <div class="slot-rank">5<div style="font-size:10px;color:var(--gold-light);letter-spacing:0.05em;">1 pt</div></div>
+            <div class="slot-body">
+              <div class="slot-label">5th Choice</div>
+              <select class="slot-select" id="rank5" onchange="updateDropdowns()">
+                <option value="">— Select a book —</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="vote-submit-wrap">
+          <p class="vote-submit-note">Your vote is anonymous. Each family member gets one vote.</p>
+          <button class="vote-submit-btn" id="submitBtn" onclick="submitVote()">Submit My Vote</button>
+          <p class="vote-error" id="voteError">Please select all 5 choices before submitting.</p>
+        </div>
+      </div>
+
+      <div class="vote-thankyou" id="voteThankyou">
+        <div class="thankyou-icon">📖</div>
+        <h2 class="thankyou-title">Vote Submitted!</h2>
+        <p class="thankyou-text">Your ballot has been counted. Check the <strong>Live Results</strong> tab to see how the voting is going!</p>
+        <div class="thankyou-votes" id="thankyouVotes">
+          <div class="thankyou-votes-title">Your Ballot</div>
+          <div id="thankyouVoteList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS TAB -->
+    <div class="vote-tab" id="resultsTab" style="display:none;">
+      <div class="section-intro">
+        <h2>Live Results</h2>
+        <p>Updated in real time as votes come in. Points: 1st=5, 2nd=4, 3rd=3, 4th=2, 5th=1.</p>
+      </div>
+
+      <div id="resultsLoading" style="text-align:center;padding:40px;color:var(--text-light);font-style:italic;">Loading results…</div>
+
+      <div id="resultsContent" style="display:none;">
+        <div style="background:var(--white);border:1px solid var(--border);padding:20px 24px;margin-bottom:28px;display:flex;gap:32px;flex-wrap:wrap;align-items:center;">
+          <div>
+            <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Total Votes Cast</div>
+            <div id="totalVotes" style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--forest);">—</div>
+          </div>
+          <div>
+            <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Current Leader</div>
+            <div id="currentLeader" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--pine);">—</div>
+          </div>
+          <div style="margin-left:auto;">
+            <button onclick="loadResults()" style="background:transparent;border:1px solid var(--border);padding:8px 18px;font-family:'Source Serif 4',serif;font-size:13px;cursor:pointer;color:var(--text-light);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--pine)'" onmouseout="this.style.borderColor='var(--border)'">↻ Refresh</button>
+          </div>
+        </div>
+        <div id="resultsBars"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .result-row {
+    background: var(--white);
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .result-row.leader { border-left: 4px solid var(--gold); }
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+    gap: 12px;
+  }
+  .result-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--forest);
+    font-weight: 600;
+    flex: 1;
+  }
+  .result-pts {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pine);
+    min-width: 60px;
+    text-align: right;
+  }
+  .result-pts span {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-light);
+    font-family: 'Source Serif 4', serif;
+  }
+  .result-bar-track {
+    height: 8px;
+    background: var(--border);
+    margin: 0 18px 14px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .result-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pine), var(--sage));
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+  .result-row.leader .result-bar-fill {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+</style>
+
+<script>
+  const SUPABASE_URL = 'https://pqgmnuwfgdbcondjphry.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_7-6RwgU8E3DhbxnDyYXtBg_7CDepUff';
+
+  const BOOKS = [
+    "Diary of a Refugee — Frances Fearn",
+    "Cutting for Stone — Abraham Verghese",
+    "The Frozen River — Ariel Lawhon",
+    "The Road to Tender Hearts — Annie Hartnett",
+    "Trust — Hernán Díaz",
+    "Abundance — Hafeez Lakhani",
+    "The Infinite Sadness of Small Appliances — Glenn Dixon",
+    "Bloom — Robbie Couch",
+    "Yesteryear — Caro Claire Burke",
+    "Coyoteland — Vanessa Hua"
+  ];
+
+  // Wake up Supabase
+  async function wakeUp() {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/book_votes?select=id&limit=1`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+    } catch(e) {}
+  }
+  wakeUp();
+
+  // Lock screen
+  function checkLock() {
+    const val = document.getElementById('lockInput').value.trim().toLowerCase();
+    if (val === 'buttonwood') {
+      document.getElementById('lockScreen').remove();
+      document.getElementById('mainSite').style.display = 'block';
+      initDropdowns();
+    } else {
+      document.getElementById('lockError').style.display = 'block';
+      document.getElementById('lockInput').value = '';
+      document.getElementById('lockInput').focus();
+    }
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('lockInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkLock();
+    });
+  });
+
+  // Tabs
+  function showTab(tab, btn) {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('booksTab').classList.remove('active');
+    document.getElementById('voteTab').style.display = 'none';
+    document.getElementById('resultsTab').style.display = 'none';
+    document.getElementById('voteTab').classList.remove('active');
+
+    if (tab === 'books') {
+      document.getElementById('booksTab').classList.add('active');
+    } else if (tab === 'vote') {
+      document.getElementById('voteTab').style.display = 'block';
+    } else if (tab === 'results') {
+      document.getElementById('resultsTab').style.display = 'block';
+      loadResults();
+    }
+    window.scrollTo({ top: document.querySelector('.nav-tabs').offsetTop - 10, behavior: 'smooth' });
+  }
+
+  // Dropdowns
+  function initDropdowns() {
+    for (let i = 1; i <= 5; i++) {
+      const sel = document.getElementById(`rank${i}`);
+      sel.innerHTML = '<option value="">— Select a book —</option>';
+      BOOKS.forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = b;
+        sel.appendChild(opt);
+      });
+    }
+  }
+
+  function updateDropdowns() {
+    const selected = [];
+    for (let i = 1; i <= 5; i++) {
+      const v = document.getElementById(`rank${i}`).value;
+      if (v) selected.push(v);
+    }
+    for (let i = 1; i <= 5; i++) {
+      const sel = document.getElementById(`rank${i}`);
+      const current = sel.value;
+      Array.from(sel.options).forEach(opt => {
+        if (opt.value === '') return;
+        opt.disabled = selected.includes(opt.value) && opt.value !== current;
+      });
+    }
+  }
+
+  async function submitVote() {
+    const ranks = [];
+    for (let i = 1; i <= 5; i++) {
+      ranks.push(document.getElementById(`rank${i}`).value);
+    }
+
+    if (ranks.some(r => !r)) {
+      document.getElementById('voteError').textContent = 'Please select all 5 choices before submitting.';
+      document.getElementById('voteError').style.display = 'block';
+      return;
+    }
+    if (new Set(ranks).size !== 5) {
+      document.getElementById('voteError').textContent = 'Please select 5 different books.';
+      document.getElementById('voteError').style.display = 'block';
+      return;
+    }
+    document.getElementById('voteError').style.display = 'none';
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/book_votes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ rank1: ranks[0], rank2: ranks[1], rank3: ranks[2], rank4: ranks[3], rank5: ranks[4] })
+      });
+
+      if (!res.ok) throw new Error(await res.text());
+
+      // Show thank you
+      const listEl = document.getElementById('thankyouVoteList');
+      const pts = [5,4,3,2,1];
+      listEl.innerHTML = ranks.map((r, i) => `
+        <div class="thankyou-vote-item">
+          <span class="thankyou-rank">${i+1}</span>
+          <span style="flex:1">${r}</span>
+          <span style="font-size:12px;color:var(--gold);font-weight:600;">${pts[i]} pts</span>
+        </div>`).join('');
+
+      document.getElementById('voteForm').style.display = 'none';
+      document.getElementById('voteThankyou').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch(err) {
+      console.error(err);
+      btn.textContent = 'Submit My Vote';
+      btn.disabled = false;
+      document.getElementById('voteError').textContent = 'There was a problem submitting. Please try again.';
+      document.getElementById('voteError').style.display = 'block';
+    }
+  }
+
+  // Results
+  async function loadResults() {
+    document.getElementById('resultsLoading').style.display = 'block';
+    document.getElementById('resultsContent').style.display = 'none';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/book_votes?select=*`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const rows = await res.json();
+
+      // Calculate points
+      const points = {};
+      BOOKS.forEach(b => points[b] = 0);
+      const rankPts = [5, 4, 3, 2, 1];
+
+      rows.forEach(row => {
+        ['rank1','rank2','rank3','rank4','rank5'].forEach((k, i) => {
+          if (row[k] && points[row[k]] !== undefined) {
+            points[row[k]] += rankPts[i];
+          }
+        });
+      });
+
+      // Sort by points
+      const sorted = Object.entries(points).sort((a, b) => b[1] - a[1]);
+      const maxPts = sorted[0][1] || 1;
+
+      document.getElementById('totalVotes').textContent = rows.length;
+      document.getElementById('currentLeader').textContent = sorted[0][1] > 0
+        ? sorted[0][0].split(' — ')[0]
+        : 'No votes yet';
+
+      const barsEl = document.getElementById('resultsBars');
+      barsEl.innerHTML = sorted.map(([book, pts], i) => `
+        <div class="result-row ${i === 0 && pts > 0 ? 'leader' : ''}">
+          <div class="result-header">
+            <div class="result-title">${i === 0 && pts > 0 ? '🏆 ' : ''}${book}</div>
+            <div class="result-pts">${pts} <span>pts</span></div>
+          </div>
+          <div class="result-bar-track">
+            <div class="result-bar-fill" style="width:${maxPts > 0 ? (pts/maxPts*100) : 0}%"></div>
+          </div>
+        </div>`).join('');
+
+      document.getElementById('resultsLoading').style.display = 'none';
+      document.getElementById('resultsContent').style.display = 'block';
+
+    } catch(err) {
+      console.error(err);
+      document.getElementById('resultsLoading').textContent = 'Error loading results. Please try refreshing.';
+    }
+  }
+</script>
+</body>
+</html>
