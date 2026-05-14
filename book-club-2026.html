@@ -638,7 +638,7 @@
     <div class="header-inner">
       <div class="header-eyebrow">Pennock Pines, Inc.</div>
       <h1 class="header-title">Summer 2026<br><em>Book Club</em></h1>
-      <p class="header-subtitle">Ten books. One summer. Your vote counts.</p>
+      <p class="header-subtitle">Ten nominations. One winner. Cast your vote for the book we read together this summer.</p>
       <div class="header-rule">
         <div class="header-rule-line"></div>
         <div class="header-rule-diamond"></div>
@@ -657,8 +657,8 @@
   <div class="page-wrap">
     <div class="books-tab active" id="booksTab">
       <div class="section-intro">
-        <h2>This Summer's Reading List</h2>
-        <p>Ten remarkable books have been nominated for Pennock Pines Summer 2026. Browse the selections below, then head to the voting tab to rank your top five.</p>
+        <h2>This Summer's Nominations</h2>
+        <p>Ten books have been nominated for the Pennock Pines Summer 2026 Book Club — but only <strong>one</strong> will be selected. Browse the nominations below, then head to the voting tab to rank your top five choices.</p>
       </div>
 
       <div style="font-size:12px;color:var(--text-light);font-style:italic;margin-bottom:20px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--sage);">
@@ -864,11 +864,11 @@
       <div id="voteForm">
         <div class="section-intro">
           <h2>Cast Your Vote</h2>
-          <p>Rank your top 5 books. Your 1st choice earns <strong>5 points</strong>, down to <strong>1 point</strong> for 5th. The book with the most total points wins.</p>
+          <p>Rank your top 5 nominations in order of preference. The book with the most total points across all ballots will be selected as our <strong>Summer 2026 read</strong>.</p>
         </div>
 
         <div class="vote-intro-box">
-          <strong>Scoring:</strong> 1st choice = 5 pts &nbsp;·&nbsp; 2nd = 4 pts &nbsp;·&nbsp; 3rd = 3 pts &nbsp;·&nbsp; 4th = 2 pts &nbsp;·&nbsp; 5th = 1 pt. Each book can only appear once in your ballot. Results update live as votes come in — check the <strong>Live Results</strong> tab!
+          <strong>Scoring:</strong> 1st choice = 5 pts &nbsp;·&nbsp; 2nd = 4 pts &nbsp;·&nbsp; 3rd = 3 pts &nbsp;·&nbsp; 4th = 2 pts &nbsp;·&nbsp; 5th = 1 pt. Each book can only appear once in your ballot. The nomination with the most total points will be selected as our one Summer 2026 read. Check the <strong>Live Results</strong> tab to follow along!
         </div>
 
         <div class="vote-slots">
@@ -920,7 +920,7 @@
         </div>
 
         <div class="vote-submit-wrap">
-          <p class="vote-submit-note">Your vote is anonymous. Each family member gets one vote.</p>
+          <p class="vote-submit-note">Your vote is anonymous. Each family member gets one vote. One book will be selected based on total points.</p>
           <button class="vote-submit-btn" id="submitBtn" onclick="submitVote()">Submit My Vote</button>
           <p class="vote-error" id="voteError">Please select all 5 choices before submitting.</p>
         </div>
@@ -929,7 +929,7 @@
       <div class="vote-thankyou" id="voteThankyou">
         <div class="thankyou-icon">📖</div>
         <h2 class="thankyou-title">Vote Submitted!</h2>
-        <p class="thankyou-text">Your ballot has been counted. Check the <strong>Live Results</strong> tab to see how the voting is going!</p>
+        <p class="thankyou-text">Your ballot has been counted. The nomination with the most points across all family votes will be our <strong>Summer 2026 Book Club selection</strong>. Check the Live Results tab to follow the standings!</p>
         <div class="thankyou-votes" id="thankyouVotes">
           <div class="thankyou-votes-title">Your Ballot</div>
           <div id="thankyouVoteList"></div>
@@ -941,7 +941,7 @@
     <div class="vote-tab" id="resultsTab" style="display:none;">
       <div class="section-intro">
         <h2>Live Results</h2>
-        <p>Updated in real time as votes come in. Points: 1st=5, 2nd=4, 3rd=3, 4th=2, 5th=1.</p>
+        <p>The nomination with the most points will be selected as our one Summer 2026 read. Updated in real time as votes come in. Scoring: 1st=5pts, 2nd=4pts, 3rd=3pts, 4th=2pts, 5th=1pt.</p>
       </div>
 
       <div id="resultsLoading" style="text-align:center;padding:40px;color:var(--text-light);font-style:italic;">Loading results…</div>
@@ -953,7 +953,7 @@
             <div id="totalVotes" style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--forest);">—</div>
           </div>
           <div>
-            <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Current Leader</div>
+            <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">Leading Selection</div>
             <div id="currentLeader" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--pine);">—</div>
           </div>
           <div style="margin-left:auto;">
