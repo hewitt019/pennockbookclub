@@ -1019,7 +1019,7 @@
 
   // Override showTab for vote — opens in new window from main page
   function openVoteWindow() {
-    window.open(window.location.pathname + '?tab=vote', '_blank', 'width=700,height=800');
+    window.open(window.location.pathname + '?tab=vote&unlocked=1', '_blank');
   }
 
   // Wake up Supabase
@@ -1039,13 +1039,6 @@
       document.getElementById('lockScreen').remove();
       document.getElementById('mainSite').style.display = 'block';
       initDropdowns();
-      // If opened as vote window, switch to vote tab
-      if (window.location.search.includes('tab=vote')) {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.nav-tab')[1].classList.add('active');
-        document.getElementById('booksTab').classList.remove('active');
-        document.getElementById('voteTab').style.display = 'block';
-      }
     } else {
       document.getElementById('lockError').style.display = 'block';
       document.getElementById('lockInput').value = '';
@@ -1056,6 +1049,17 @@
     document.getElementById('lockInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') checkLock();
     });
+    // Skip lock screen if opened from main tab
+    if (window.location.search.includes('unlocked=1')) {
+      document.getElementById('lockScreen').remove();
+      document.getElementById('mainSite').style.display = 'block';
+      initDropdowns();
+      // Switch to vote tab
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-tab')[1].classList.add('active');
+      document.getElementById('booksTab').classList.remove('active');
+      document.getElementById('voteTab').style.display = 'block';
+    }
   });
 
   // Tabs
